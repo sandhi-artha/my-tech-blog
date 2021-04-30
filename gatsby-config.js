@@ -34,6 +34,9 @@ module.exports = {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 630,
+              linkImagesToOriginal: true,
+              showCaptions: ['title'],
+              markdownCaptions: true,
             },
           },
           {
@@ -67,7 +70,7 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `content/assets/gatsby-icon.png`,
+        icon: `content/assets/web-icon.png`,
       },
     },
     `gatsby-plugin-react-helmet`,

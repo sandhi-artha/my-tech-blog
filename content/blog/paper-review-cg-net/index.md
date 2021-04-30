@@ -37,17 +37,16 @@ SAR image are indeed difficult to process even to interpret for the untrained ey
 - Another difficulty is shadowing, since SAR sensors are side-looking, it means there won't be any return signals behind the building, leaving it as empty or dark pixels.
 
 
-![optical vs SAR image comparison](./optical-vs-sar.png)
-*Comparison of optical and SAR imagery. We can see the layover effect where the rooftops are visible earlier in SAR image compared to the optical. When I say "earlier" I meant based on the receiving time of returned signal, and in this figure, the radar's signal source is from the top of the image. We can also see shadowing effects where black pixels appear "after" the buildings*
+![optical vs SAR image comparison](./optical-vs-sar.png "Comparison of optical and SAR imagery. We can see the layover effect where the rooftops are visible earlier in SAR image compared to the optical. When I say *earlier* I meant based on the receiving time of returned signal, and in this figure, the radar's signal source is from the top of the image. We can also see shadowing effects where black pixels appear *after* the buildings")
 
 ### Dataset
 
 Using Digital Elevation Model (DEM) and Geographic Information System (GIS) data for building height and area, they created (kinda) 3D model of each building for ground truth.
 
 
-![dataset generation workflow](./generating-dataset.png)
+![dataset generation workflow](./generating-dataset.png "Dataset generation workflow")
 
-*Dataset generation workflow*
+
 
 DEM contains building height. They use this to model how buildings look in SAR images, using the building's height to cast shadows, creating layover effects in the direction of the radar source. This will be the buildings' annotations and the model is expected to output a mask like this.
 
@@ -74,14 +73,11 @@ Both DEM and GIS data are in UTM coordinate system (crs) which are `(x,y,h)`, th
 
 The authors compared 2 models, each with and without the CG-module. Also they compare using GIS data of *complete* or the *sensor-visible*  building footprint.
 
-![sensor-visible footprint results](./sensor-visible-footprint-results.png)
-
-*Results using sensor-visible building footprint. The CG module is indeed an innovative solution but it only increase the model's performance by some margin in each metrics*
+![sensor-visible footprint results](./sensor-visible-footprint-results.png "Results using sensor-visible building footprint. The CG module is indeed an innovative solution but it only increase the model's performance by some margin in each metrics")
 
 
-![complete building footprint results](./complete-building-footprint-results.png)
+![complete building footprint results](./complete-building-footprint-results.png "Results using complete building footprint")
 
-*Results using complete building footprint*
 
 I did had a hard time understanding the workflow behind the CG module but I think it's a form of batch normalization applied to feature maps extracted from a convolution block. In the end I looked at the results and it did increase performance in all metrics when CG is used. A difference of `0.02` might not look significant, but in a data science competition, it's important enough to decide you win a prize or not. 
 
